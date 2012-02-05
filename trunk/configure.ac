@@ -18,7 +18,7 @@
 ##	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ##
 
-AC_INIT(mydns, [1.2.8.31], [http://bugs.mydns-ng.com/])
+AC_INIT(mydns, [1.2.8.32], [http://bugs.mydns-ng.com/])
 AC_USE_SYSTEM_EXTENSIONS
 AC_PREREQ([2.60])
 AC_COPYRIGHT([Portions of this script are Copyright 2002-2005 Don Moore  2007-2009 Howard Wilkinson])
@@ -32,6 +32,7 @@ AC_PROG_CC
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_LIBTOOL
+PKG_PROG_PKG_CONFIG
 
 ## GNU gettext
 AM_GNU_GETTEXT
@@ -103,6 +104,16 @@ AC_CHECK_FUNCS([strtol])
 AC_CHECK_FUNC(inet_ntop, AC_DEFINE(HAVE_INET_NTOP, 1, [Define to 1 if you have the 'inet_ntop' function.]),
     AC_CHECK_LIB(nsl, inet_ntop, AC_DEFINE(HAVE_INET_NTOP, 1, [Define to 1 if you have the 'inet_ntop' function.])))
 
+AC_ARG_WITH([systemdsystemunitdir],
+    AS_HELP_STRING([--with-systemdsystemunitdir=DIR], [Directory for systemd service files]),
+    [], [with_systemdsystemunitdir=$($PKG_CONFIG --variable=systemdsystemunitdir systemd)])
+
+if test "x$with_systemdsystemunitdir" != xno; then
+    AC_SUBST([systemdsystemunitdir], [$with_systemdsystemunitdir])
+fi
+
+AM_CONDITIONAL(HAVE_SYSTEMD, [test -n "$with_systemdsystemunitdir" -a "x$with_systemdsystemunitdir" != xno ])
+
 AC_LIB_SOCKET
 AC_LIB_NSL
 AC_LIB_MATH
@@ -140,7 +151,7 @@ AC_ENABLE_STRICT		#	Compile with extra-strict warnings?
 AC_ENABLE_ALT_NAMES		#	Alternate column names for DN
 AC_ENABLE_STATUS		#	Enable the STATUS opcode to check server status
 AC_DISABLE_DATE_LOGGING		#	Disable date/time in verbose output?
-AC_MYDNS_VARS			#  Set variables containing dirs
+AC_MYDNS_VARS			#	Set variables containing dirs
 
 AC_CONFIG_FILES(contrib/Makefile  intl/Makefile\
 		po/Makefile.in \

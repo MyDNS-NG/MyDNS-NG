@@ -10,6 +10,9 @@ EXTRA_DIST			= config.rpath BUGS QUICKSTART.mysql QUICKSTART.postgres README.mys
 
 CLEANFILES			= core* *~ gmon.out bb.out @PACKAGE_NAME@-*.gz @PACKAGE_NAME@-*.bz2
 
+DISTCHECK_CONFIGURE_FLAGS = \
+        --with-systemdsystemunitdir=$$dc_install_base/$(systemdsystemunitdir)
+
 install-data-hook:
 	@echo
 	@echo "  ###"

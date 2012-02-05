@@ -1,3 +1,9 @@
+1.2.8.32
+- add support for fedora systemd
+
+1.2.8.31
+- fix various php issues with admin.php
+
 1.2.8.30
 - MyDNS-NG stops responding after some time. Thank you Thomas! #40
 - Delegation now has precedence over wildcard matching, fixes bugs #38 & #42
