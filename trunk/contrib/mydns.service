@@ -1,0 +1,21 @@
+Description=MyDNS database-driven DNS server
+After=syslog.target
+After=network.target
+After=mysqld.service
+After=postgresql.service
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/mydns -b
+ExecReload=/bin/kill -HUP $MAINPID
+PIDFile=/var/run/mydns.pid
+
+# Give a reasonable amount of time for the server to start up/shut down
+TimeoutSec=30
+
+# We rely on systemd to restart mydns if it dies
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
