@@ -36,7 +36,7 @@ extern int	num_udp6_fd;			/* Number of listening FD's (IPv6) */
 **************************************************************************************************/
 taskexec_t
 read_udp_query(int fd, int family) {
-  struct sockaddr	addr;
+  struct sockaddr_storage	addr;
   char			in[DNS_MAXPACKETLEN_UDP];
   socklen_t 		addrlen = 0;
   int			len = 0;
@@ -55,7 +55,7 @@ read_udp_query(int fd, int family) {
 #endif
   }
 
-  if ((len = recvfrom(fd, &in, sizeof(in), 0, &addr, &addrlen)) < 0) {
+  if ((len = recvfrom(fd, &in, sizeof(in), 0, (struct sockaddr *)&addr, &addrlen)) < 0) {
     if (
 	(errno == EINTR)
 #ifdef EAGAIN

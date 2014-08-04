@@ -435,7 +435,7 @@ _task_init(
 	   taskstat_t		status,			/* Initial status */
 	   int 			fd,			/* Associated file descriptor for socket */
 	   int			protocol,		/* Protocol (SOCK_DGRAM or SOCK_STREAM) */
-	   int 			family,			/* Protocol (SOCK_DGRAM or SOCK_STREAM) */
+	   int 			family,			/* Protocol Family (AF_INET or AF_INET6) */
 	   void 		*addr,			/* Remote address */
 	   const char		*file,
 	   int			line
