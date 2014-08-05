@@ -11,7 +11,9 @@
 ## /usr/ssl/include /usr/local/ssl/include /usr/include /usr/include/ssl /opt/ssl/include /opt/openssl/include /usr/local/ssl/include /usr/local/include
 
 ## OpenSSL lib check paths:
-## /usr/ssl/lib /usr/local/ssl/lib /usr/lib/openssl /usr/lib /opt/ssl/lib /opt/openssl/lib /usr/local/lib/
+## /lib /usr/lib /usr/local/lib /usr/ssl/lib /usr/local/ssl/lib
+## /lib64 /usr/lib64 /usr/local/lib64 /usr/ssl/lib64 /usr/local/ssl/lib64
+## /usr/lib/x86_64-linux-gnu
 
 ##
 ## Check for cflags
@@ -37,7 +39,7 @@ AC_DEFUN([AC_C_CFLAGS],
 ##
 AC_DEFUN([AC_WITH_OPENSSL_LIB],
 	[
-		ac_ssl_lib_dirs="/lib /usr/lib /usr/local/lib /usr/ssl/lib /usr/local/ssl/lib"
+		ac_ssl_lib_dirs="/lib /usr/lib /usr/local/lib /usr/ssl/lib /usr/local/ssl/lib /lib64 /usr/lib64 /usr/local/lib64 /usr/ssl/lib64 /usr/local/ssl/lib64 /usr/lib/x86_64-linux-gnu"
 		AC_ARG_WITH(openssl-lib,
 			AC_HELP_STRING([--with-openssl-lib=DIR], [look for the OpenSSL libraries in DIR]),
 			ac_ssl_lib_dirs="$withval $ac_ssl_lib_dirs")
@@ -446,7 +448,7 @@ AC_DEFUN([AC_ENABLE_STATUS],
 ##
 AC_DEFUN([AC_LIB_Z],
 	[
-		ac_zlib_dirs="/lib /usr/lib /usr/local/lib"
+		ac_zlib_dirs="/lib /usr/lib /usr/local/lib /lib64 /usr/lib64 /usr/local/lib64 /usr/lib/x86_64-linux-gnu"
 		AC_ARG_WITH(zlib,
 			AC_HELP_STRING([--with-zlib=DIR], [look for the zlib compression library in DIR]),
 			ac_zlib_dirs="$withval $ac_zlib_dirs")
@@ -476,7 +478,7 @@ AC_DEFUN([AC_LIB_Z],
 ##
 AC_DEFUN([AC_LIB_Z_STATIC],
         [
-                ac_zlib_static_dirs="/lib /usr/lib /usr/local/lib"
+                ac_zlib_static_dirs="/lib /usr/lib /usr/local/lib /lib64 /usr/lib64 /usr/local/lib64 /usr/lib/x86_64-linux-gnu"
                 AC_ARG_WITH(zlib_static,
                         AC_HELP_STRING([--with-zlib-static=DIR], [look for the static zlib compression library in DIR]),
                         ac_zlib_static_dirs="$withval $ac_zlib_static_dirs")
@@ -542,7 +544,7 @@ AC_DEFUN([AC_LIB_MATH],
 ##
 AC_DEFUN([AC_LIB_MYSQLCLIENT],
 	[
-		libmysqlclient_dirs="/usr/local/mysql/lib /usr/local/lib/mysql /usr/local/lib /usr/lib/mysql /usr/lib /lib"
+		libmysqlclient_dirs="/usr/local/mysql/lib /usr/local/lib/mysql /usr/local/lib /usr/lib/mysql /usr/lib /lib /usr/local/mysql/lib64 /usr/local/lib64/mysql /usr/local/lib64 /usr/lib64/mysql /usr/lib64 /lib64 /usr/lib/x86_64-linux-gnu"
 		AC_ARG_WITH(mysql-lib,
 			AC_HELP_STRING([--with-mysql-lib=DIR], [look for the MySQL client library in DIR]),
 			libmysqlclient_dirs="$withval $libmysqlclient_dirs")
@@ -643,7 +645,7 @@ AC_DEFUN([AC_CHECK_MYSQL],
 ##
 AC_DEFUN([AC_LIB_PQ],
 	[
-		ac_mydns_lib_dirs="/usr/local/pgsql/lib /lib /usr/lib /usr/local/lib"
+		ac_mydns_lib_dirs="/usr/local/pgsql/lib /lib /usr/lib /usr/local/lib /usr/local/pgsql/lib64 /lib64 /usr/lib64 /usr/local/lib64 /usr/lib/x86_64-linux-gnu"
 		AC_ARG_WITH(pgsql-lib,
 			AC_HELP_STRING([--with-pgsql-lib=DIR],
 								[look for the PostgreSQL client library in DIR]),
