@@ -219,7 +219,7 @@ when the server first starts.
 
 Notification is sent to all name servers that have NS records in the zone plus
 any mentioned in the @samp{also_notify} column in the @code{soa} table.
-@xref{soa.also_notify}
+@xref{soa.also_notify}.
 
 @c ***
 @c ***	ROUND ROBIN
