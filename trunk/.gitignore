@@ -20,7 +20,7 @@ Makefile
 Makefile.in
 mdate-sh
 missing
-mydns
+src/mydns/mydns
 mydnscheck
 mydns-conf
 mydnsexport
