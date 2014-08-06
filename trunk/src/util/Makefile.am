@@ -6,7 +6,7 @@ bin_PROGRAMS				=	mydnscheck mydnsexport mydnsimport mydnsptrconvert mydns-conf
 
 localedir				=	$(datadir)/locale
 
-INCLUDES				=	@UTILINCLUDE@ @MYDNSINCLUDE@ @INTLINCLUDE@ @SQLINCLUDE@ @SSLINCLUDE@
+AM_CPPFLAGS				=	@UTILINCLUDE@ @MYDNSINCLUDE@ @INTLINCLUDE@ @SQLINCLUDE@ @SSLINCLUDE@
 DEFS					=	-DLOCALEDIR=\"$(localedir)\" -DSBINDIR=\"$(sbindir)\"
 LDADD					=	@LIBMYDNS@ @LIBUTIL@ @LIBINTL@ @LIBSQL@ @LIBSSL@ @LIBSOCKET@ @LIBNSL@ @LIBM@
 
