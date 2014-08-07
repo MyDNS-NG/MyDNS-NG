@@ -537,8 +537,7 @@ extern int		inet_pton(int, const char *, void *);
 #endif
 
 #if !HAVE_INET_NTOP
-extern const char *sql_errmsg(MYSQL *);
-*inet_ntop(int, const void *, char *, unsigned int);
+extern const char *inet_ntop(int, const void *, char *, unsigned int);
 #endif
 
 
