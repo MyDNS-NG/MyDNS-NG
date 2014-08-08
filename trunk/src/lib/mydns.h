@@ -250,8 +250,9 @@ typedef enum _task_error_t					/* Common errors */
 
 } task_error_t;
 
-/* Query classes */
-typedef enum {
+
+typedef enum							/* Query classes */
+{                                      
 	DNS_CLASS_UNKNOWN 	= -1,				/* Unknown */
 
 	DNS_CLASS_IN		= 1,				/* Internet */
@@ -263,8 +264,9 @@ typedef enum {
 
 } dns_class_t;
 
-/* Query types */
-typedef enum {
+
+typedef enum							/* Query types */
+{
 	DNS_QTYPE_UNKNOWN		= -1,			/* Unknown */
 
 	DNS_QTYPE_NONE			= 0,			/* None/invalid */
@@ -318,7 +320,7 @@ typedef enum {
 	DNS_QTYPE_DNSKEY		= 48,
 	DNS_QTYPE_DHCID			= 49,
 	DNS_QTYPE_NSEC3			= 50,
-	DNS_QTYPE_NSEC3PARAM	= 51,
+	DNS_QTYPE_NSEC3PARAM		= 51,
 
 	DNS_QTYPE_HIP			= 55,
 
@@ -328,8 +330,8 @@ typedef enum {
 	DNS_QTYPE_GID			= 102,
 	DNS_QTYPE_UNSPEC		= 103,
 
-	DNS_QTYPE_TKEY			= 249,			/* Secret Key Establishment (RFC2930) */
-	DNS_QTYPE_TSIG			= 250,			/* Secret Key Transaction Authentication (RFC2845) */
+	DNS_QTYPE_TKEY			= 249,
+	DNS_QTYPE_TSIG			= 250,			/* Transaction signature */
 	DNS_QTYPE_IXFR			= 251,			/* Incremental zone transfer */
 	DNS_QTYPE_AXFR			= 252,			/* Zone transfer */
 	DNS_QTYPE_MAILB			= 253,			/* Transfer mailbox records */
@@ -344,8 +346,9 @@ typedef enum {
 #endif
 } dns_qtype_t;
 
-/* DNS opcode types */
-typedef enum {
+
+typedef enum							/* DNS opcode types */
+{
 	DNS_OPCODE_UNKNOWN		= -1,			/* Unknown */
 
 	DNS_OPCODE_QUERY		= 0,			/* Query (RFC 1035) */
@@ -357,8 +360,11 @@ typedef enum {
 } dns_opcode_t;
 
 
-/* Standard Return codes */
-typedef enum {
+
+
+/* Return codes */
+typedef enum
+{
 	DNS_RCODE_UNKNOWN		= -1,		/* Unknown */
 
 	DNS_RCODE_NOERROR		= 0,		/* No error (RFC 1035) */
@@ -367,50 +373,40 @@ typedef enum {
 	DNS_RCODE_NXDOMAIN		= 3,		/* Nonexistent domain (RFC 1035) */
 	DNS_RCODE_NOTIMP		= 4,		/* Not implemented (RFC 1035) */
 	DNS_RCODE_REFUSED		= 5,		/* Query refused (RFC 1035) */
+
 	DNS_RCODE_YXDOMAIN		= 6,		/* Name exists when it should not (RFC 2136) */
 	DNS_RCODE_YXRRSET		= 7,		/* RR set exists when it should not (RFC 2136) */
 	DNS_RCODE_NXRRSET		= 8,		/* RR set that should exist does not (RFC 2136) */
 	DNS_RCODE_NOTAUTH		= 9,		/* Server not authoritative for zone (RFC 2136) */
 	DNS_RCODE_NOTZONE		= 10,		/* Name not contained in zone (RFC 2136) */
-	/* DNS_RCODE 11 - 15 are unassigned or not supported */
+
+	/* Codes that can't fit in 4 bits are found in OPT (RFC 2671), TSIG (RFC 2845), and
+		TKEY (RFC 2930) RRs */ 
+	/* RFC 2671 says that rcode 16 is BADVERS ("Bad OPT version").  This conlicts with
+		RFC 2845.  RFC 2845 seems like best current practice. */
+
+	DNS_RCODE_BADVERS		= 16,		/* Bad OPT Version */
+	DNS_RCODE_BADSIG		= 16,		/* TSIG signature failure (RFC 2845) */
+	DNS_RCODE_BADKEY		= 17,		/* Key not recognized (RFC 2845) */
+	DNS_RCODE_BADTIME		= 18,		/* Signature out of time window (RFC 2845) */
+	DNS_RCODE_BADMODE		= 19,		/* Bad TKEY mode (RFC 2930) */
+	DNS_RCODE_BADNAME		= 20,		/* Duplicate key name (RFC 2930) */
+	DNS_RCODE_BADALG		= 21,		/* Algorithm not supported (RFC 2930) */
+	DNS_RCODE_BADTRUNC		= 22,		/* Bad Truncation */
+
 } dns_rcode_t;
 
-/* Extended Return Codes for EDNS0 [RFC: 6891] (DNS_QTYPE_OPT) */
-typedef enum {
-	DNS_EDNS0_EXTRCODE_BADVERS		= 16,		/* Bad OPT Version */
-	/* EDNS0_EXTRCODE 17-65535 are unassigned or not supported */
-} dns_edns0_extrcode_t;
 
-/* Extended Return Codes for TSIG [RFC: 2845] (DNS_QTYPE_TSIG) */
-typedef enum {
-	DNS_TSIG_EXTRCODE_BADSIG		= 16,		/* TSIG signature failure (RFC 2845) */
-	DNS_TSIG_EXTRCODE_BADKEY		= 17,		/* Key not recognized (RFC 2845) */
-	DNS_TSIG_EXTRCODE_BADTIME		= 18,		/* Signature out of time window (RFC 2845) */
-} dns_tsig_extrcode_t;
-
-/* Extended Return Codes for TKEY [RFC: 2930] (DNS_QTYPE_TKEY) */
-typedef enum {
-	DNS_TKEY_EXTRCODE_BADSIG		= 16,		/* TSIG signature failure (RFC 2845) */
-	DNS_TKEY_EXTRCODE_BADKEY		= 17,		/* Key not recognized (RFC 2845) */
-	DNS_TKEY_EXTRCODE_BADTIME		= 18,		/* Signature out of time window (RFC 2845) */
-	DNS_TKEY_EXTRCODE_BADMODE		= 19,		/* Bad TKEY mode (RFC 2930) */
-	DNS_TKEY_EXTRCODE_BADNAME		= 20,		/* Duplicate key name (RFC 2930) */
-	DNS_TKEY_EXTRCODE_BADALG		= 21,		/* Algorithm not supported (RFC 2930) */
-	DNS_TKEY_EXTRCODE_BADTRUNC		= 22,		/* Bad Truncation */
-} dns_tkey_extrcode_t;
-
-
-
-
-
-/* DNS record types (for MyDNS) */
-typedef enum _dns_rrtype_t {
+/* The record types */
+typedef enum _dns_rrtype_t				/* DNS record types (for MyDNS) */
+{
 	DNS_RRTYPE_SOA,
 	DNS_RRTYPE_RR
 } dns_rrtype_t;
 
-/* Sections in reply */
-typedef enum _datasection_t {
+
+typedef enum _datasection_t				/* Sections in reply */
+{
 	QUESTION = 0,
 	ANSWER,
 	AUTHORITY,
@@ -420,10 +416,9 @@ typedef enum _datasection_t {
 
 /*
 **  Structures describing each record type
-**/
-
-/* `soa' table data (zones of authority) */
-typedef struct _mydns_soa {
+*/
+typedef struct _mydns_soa				/* `soa' table data (zones of authority) */
+{
 	uint32_t		id;
 	char			origin[DNS_MAXNAMELEN + 1];
 	char			ns[DNS_MAXNAMELEN + 1];
@@ -434,14 +429,14 @@ typedef struct _mydns_soa {
 	uint32_t		expire;
 	uint32_t		minimum;
 	uint32_t		ttl;
-	/* This field is used to specify if the zone is to be auto-recursive */
-	uint32_t                recursive;
+        /* This field is used to specify if the zone is to be auto-recursive */
+        uint32_t                recursive;
 
 	struct _mydns_soa *next;
 } MYDNS_SOA;
 
-/* `rr' table data (resource records) */
-typedef struct _mydns_rr {
+typedef struct _mydns_rr {				/* `rr' table data (resource records) */
+
   struct _mydns_rr	*next;
   uint32_t		id;
   uint32_t		zone;
@@ -499,13 +494,6 @@ typedef struct _mydns_rr {
   } recData;
 
 } MYDNS_RR;
-
-
-
-
-
-
-
 
 #if DEBUG_ENABLED
 extern void *__mydns_rr_assert_pointer(void *, const char *, const char *, int);
