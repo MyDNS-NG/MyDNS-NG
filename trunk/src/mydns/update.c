@@ -772,10 +772,6 @@ update_get_rr_data(TASK *t, UQRR *rr, char **data, size_t *datalen,
     *datalen = ASPRINTF(data, "Unknown type %s", mydns_qtype_str(rr->type));
     return (TASK_FAILED);
 
-  case DNS_QTYPE_SPF:
-    *datalen = ASPRINTF(data, "Unknown type %s", mydns_qtype_str(rr->type));
-    return (TASK_FAILED);
-
   case DNS_QTYPE_UINFO:
     *datalen = ASPRINTF(data, "Unknown type %s", mydns_qtype_str(rr->type));
     return (TASK_FAILED);

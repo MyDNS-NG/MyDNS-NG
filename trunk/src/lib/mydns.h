@@ -324,7 +324,7 @@ typedef enum							/* Query types */
 
 	DNS_QTYPE_HIP			= 55,
 
-	DNS_QTYPE_SPF			= 99,
+	DNS_QTYPE_SPF			= 99,			/* Sender Policy Framework (DEPRECATED BY RFC: 7208) [DO NOT USE] */
 	DNS_QTYPE_UINFO			= 100,
 	DNS_QTYPE_UID			= 101,
 	DNS_QTYPE_GID			= 102,
